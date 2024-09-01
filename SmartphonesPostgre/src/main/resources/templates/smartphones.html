@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org">
+
+<head th:replace = "~{fragments/head :: head(#{pageSmartphonesTitle})}"></head>
+
+<body>
+
+<div th:replace = "~{fragments/menus :: choose_language(page_title = #{pageSmartphonesTitle})}"></div>
+
+<div class = "container-lg">
+
+  <div th:replace = "~{fragments/div_error :: div_error(${error})}"></div>
+
+<!-- #################################################### -->
+
+  <th:block>
+    <!-- Dropdown menu -->
+    <!-- COMPANY 1 ! -->
+
+    <ul class = "navbar-nav navbar-left d-flex d-inline-flex w-50">
+      <li class = "nav-item dropright d-inline-flex mr-2">
+        <a class = "nav-link dropdown-toggle h4 text-info"
+           href = "#"
+           id = "navbarDropdownMenu"
+           data-toggle = "dropdown"
+           aria-haspopup = "true"
+           aria-expanded = "false"
+           aria-label = "dopDownMenu"
+           th:text="${companyServ.findCompanyById(chosenCompanyId).getCompanyName()}">
+
+          <span class = "navbar-toggler-icon"></span>
+        </a>
+        <span class = "navbar-toggler-icon"></span>
+        <div class = "dropdown-menu" aria-labelledby = "navbarDropdownMenu2">
+
+          <th:block th:each="company, i: ${companies}">
+          <form>
+          <button
+             th:class = "|dropdown-item ${chosenCompanyId == company.id ? 'text-white bg-info disabled' : ''}|"
+             th:formaction="@{${chosenCompanyId != orderCompanyId} ? '/choose_smartphone' : '#'}"
+             th:name="orderCompanyId"
+             th:value="${company.id}"
+             th:formmethod="POST"
+             th:text = "${company.companyName}">
+          </button>
+          </form>
+          </th:block>
+
+
+        </div>
+      </li>
+    <!-- </ul> -->
+
+
+    <!-- MODEL 1 -->
+
+    <!-- <ul class = "navbar-nav mr-auto"> -->
+      <li class = "nav-item dropright d-inline-flex mr-2">
+        <a class = "nav-link dropdown-toggle h4 text-info"
+           href = "#"
+           id = "navbarDropdownMenu2"
+           data-toggle = "dropdown"
+           aria-haspopup = "true"
+           aria-expanded = "false"
+           aria-label = "dopDownMenu"
+           th:text="${modelServ.findModelById(chosenModelId).getModelName()}">
+
+          <span class = "navbar-toggler-icon"></span>
+        </a>
+        <span class = "navbar-toggler-icon"></span>
+        <div class = "dropdown-menu" aria-labelledby = "navbarDropdownMenu2">
+
+          <th:block th:each="model, i: ${models}">
+            <form>
+              <button th:class = "|dropdown-item ${chosenModelId == model.id ? 'text-white bg-info disabled' : ''}|"
+                      th:formaction="@{${chosenModelId != orderModelId} ? '/choose_smartphone' : '#'}"
+                      th:name="orderModelId"
+                      th:value="${model.id}"
+                      th:formmethod="POST"
+                      th:text = "${model.modelName}">
+              </button>
+            </form>
+          </th:block>
+        </div>
+      </li>
+    </ul>
+
+  </th:block>
+
+
+  <!-- //////////////////////////////////////////////////////////////////////////////// -->
+
+
+  <th:block>
+  <!-- COMPANY 2 ! -->
+
+  <ul class = "navbar-nav navbar-left d-flex d-inline-flex">
+    <li class = "nav-item dropright d-inline-flex mr-2">
+      <a class = "nav-link dropdown-toggle h4 text-danger"
+         href = "#"
+         id = "navbarDropdownMenu3"
+         data-toggle = "dropdown"
+         aria-haspopup = "true"
+         aria-expanded = "false"
+         aria-label = "dopDownMenu"
+         th:text="${companyServ.findCompanyById(chosenCompanyId2).getCompanyName()}">
+
+        <span class = "navbar-toggler-icon"></span>
+      </a>
+      <span class = "navbar-toggler-icon"></span>
+      <div class = "dropdown-menu" aria-labelledby = "navbarDropdownMenu2">
+
+        <th:block th:each="company, i: ${companies}">
+          <form>
+            <button
+                th:class = "|dropdown-item ${chosenCompanyId2 == company.id ? 'text-white bg-info disabled' : ''}|"
+                th:formaction="@{${chosenCompanyId2 != orderCompanyId2} ? '/choose_smartphone' : '#'}"
+                th:name="orderCompanyId2"
+                th:value="${company.id}"
+                th:formmethod="POST"
+                th:text = "${company.companyName}">
+            </button>
+          </form>
+        </th:block>
+
+
+      </div>
+    </li>
+    <!-- </ul> -->
+
+
+    <!-- MODEL 2 -->
+
+    <!-- <ul class = "navbar-nav mr-auto"> -->
+    <li class = "nav-item dropright d-inline-flex mr-2">
+      <a class = "nav-link dropdown-toggle h4 text-danger"
+         href = "#"
+         id = "navbarDropdownMenu4"
+         data-toggle = "dropdown"
+         aria-haspopup = "true"
+         aria-expanded = "false"
+         aria-label = "dopDownMenu"
+         th:text="${modelServ.findModelById(chosenModelId2).getModelName()}">
+
+        <span class = "navbar-toggler-icon"></span>
+      </a>
+      <span class = "navbar-toggler-icon"></span>
+      <div class = "dropdown-menu" aria-labelledby = "navbarDropdownMenu2">
+
+        <th:block th:each="model, i: ${models2}">
+          <form>
+            <button th:class = "|dropdown-item ${chosenModelId2 == model.id ? 'text-white bg-info disabled' : ''}|"
+                    th:formaction="@{${chosenModelId2 != orderModelId2} ? '/choose_smartphone' : '#'}"
+                    th:name="orderModelId2"
+                    th:value="${model.id}"
+                    th:formmethod="POST"
+                    th:text = "${model.modelName}">
+            </button>
+          </form>
+        </th:block>
+      </div>
+    </li>
+  </ul>
+
+    <div>
+
+      <!-- CPU PERFORMANCE -->
+
+      <div class="h3 bold mt-5 mb-3">
+        <th:block th:text="#{wordCPUPerformance}"></th:block>
+      </div>
+
+      <th:block>
+        <th:block th:text="${companyServ.findCompanyById(chosenCompanyId).companyName} + ' ' +
+        ${modelServ.findModelById(chosenModelId).modelName} + ' - ' +
+        ${smartphone1.getPerformanceCPU()} + ' ' +
+        #{wordPoints}">
+        </th:block>
+        <div class="progress">
+          <div class="progress-bar bg-info"
+               role="progressbar"
+               aria-valuenow="70"
+               aria-valuemin="0"
+               aria-valuemax="100"
+               th:style="'width: ' + ${smartphone1.getPerformanceCPU()} + '%;'">
+          </div>
+        </div>
+
+        <th:block th:text="${companyServ.findCompanyById(chosenCompanyId2).companyName} + ' ' +
+        ${modelServ.findModelById(chosenModelId2).modelName} + ' - ' +
+        ${smartphone2.getPerformanceCPU()} + ' ' +
+        #{wordPoints}">
+        </th:block>
+        <div class="progress">
+          <div class="progress-bar bg-danger"
+               role="progressbar"
+               aria-valuenow="70"
+               aria-valuemin="0"
+               aria-valuemax="100"
+               th:style="'width: ' + ${smartphone2.getPerformanceCPU()} + '%;'">
+          </div>
+        </div>
+
+        <!-- GAMING PERFORMANCE -->
+
+        <div class="h3 bold mt-5 mb-3">
+          <th:block th:text="#{wordGamingPerformance}"></th:block>
+        </div>
+
+        <th:block th:text="${companyServ.findCompanyById(chosenCompanyId).companyName} + ' ' +
+        ${modelServ.findModelById(chosenModelId).modelName} + ' - ' +
+        ${smartphone1.getGamingPerformance()} + ' ' +
+        #{wordPoints}">
+        </th:block>
+        <div class="progress">
+          <div class="progress-bar bg-info"
+               role="progressbar"
+               aria-valuenow="70"
+               aria-valuemin="0"
+               aria-valuemax="100"
+               th:style="'width: ' + ${smartphone1.getGamingPerformance()} + '%;'">
+          </div>
+        </div>
+
+        <th:block th:text="${companyServ.findCompanyById(chosenCompanyId2).companyName} + ' ' +
+        ${modelServ.findModelById(chosenModelId2).modelName} + ' - ' +
+        ${smartphone2.getGamingPerformance()} + ' ' +
+        #{wordPoints}">
+        </th:block>
+        <div class="progress">
+          <div class="progress-bar bg-danger"
+               role="progressbar"
+               aria-valuenow="70"
+               aria-valuemin="0"
+               aria-valuemax="100"
+               th:style="'width: ' + ${smartphone2.getGamingPerformance()} + '%;'">
+          </div>
+        </div>
+
+
+        <!-- CAMERA MARK -->
+
+        <div class="h3 bold mt-5 mb-3">
+          <th:block th:text="#{wordCameraRating}"></th:block>
+        </div>
+
+
+        <th:block th:text="${companyServ.findCompanyById(chosenCompanyId).companyName} + ' ' +
+        ${modelServ.findModelById(chosenModelId).modelName} + ' - ' +
+        ${smartphone1.getCamera()} + ' ' +
+        #{wordPoints}">
+          </th:block>
+          <div class="progress">
+            <div class="progress-bar bg-info"
+                 role="progressbar"
+                 aria-valuenow="70"
+                 aria-valuemin="0"
+                 aria-valuemax="100"
+                 th:style="'width: ' + ${smartphone1.getCamera()} + '%;'">
+            </div>
+          </div>
+
+        <th:block th:text="${companyServ.findCompanyById(chosenCompanyId2).companyName} + ' ' +
+        ${modelServ.findModelById(chosenModelId2).modelName} + ' - ' +
+        ${smartphone2.getCamera()} + ' ' +
+        #{wordPoints}">
+        </th:block>
+        <div class="progress">
+          <div class="progress-bar bg-danger"
+               role="progressbar"
+               aria-valuenow="70"
+               aria-valuemin="0"
+               aria-valuemax="100"
+               th:style="'width: ' + ${smartphone2.getCamera()} + '%;'">
+          </div>
+        </div>
+
+      </th:block>
+    </div>
+  </th:block>
+
+  <div class="mt-5"></div>
+</div>
+</body>
+</html>

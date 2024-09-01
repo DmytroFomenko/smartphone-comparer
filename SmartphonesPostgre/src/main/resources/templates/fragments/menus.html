@@ -1,0 +1,54 @@
+<!-- ******************************* -->
+<!-- * Common upper navigation bar * -->
+<!-- ******************************* -->
+<th:block th:fragment = "choose_language(page_title)">
+
+  <nav class = "navbar navbar-expand-md bg-dark navbar-dark sticky-top mb-2">
+    <div class = "container-lg">
+
+      <!-- Page title -->
+      <div class = "d-flex vw-100 h1 align-items-baseline justify-content-center text-white mb-2 m-0">
+               <span class = "text-left w-100"
+                     th:text = "${page_title}"></span>
+      </div>
+
+      <!-- Client links -->
+      <th:block>
+        <!-- Something -->
+        <!-- Dropdown menu -->
+        <ul class = "navbar-nav navbar-left d-flex d-inline-flex w-50">
+          <li class = "nav-item dropright d-inline-flex mr-2">
+            <a class = "nav-link dropdown-toggle h4 text-info"
+               href = "#"
+               id = "languageDropdownMenu"
+               data-toggle = "dropdown"
+               aria-haspopup = "true"
+               aria-expanded = "false"
+               aria-label = "dopDownMenu"
+               th:text="#{currentLanguage}">
+              <span class = "navbar-toggler-icon"></span>
+            </a>
+            <div class = "dropdown-menu" aria-labelledby = "navbarDropdownMenu2">
+
+              <button
+                  th:with = "currentLanguage = #{currentLanguage}"
+                  th:class = "|dropdown-item ${currentLanguage == 'EN' ? 'text-white bg-info disabled' : ''}|"
+                  onclick="window.location.href='http://localhost:8080/smartphones?localeData=en'"
+                  th:text="#{switchEnglish}">
+              </button>
+              <button
+                  th:with = "currentLanguage = #{currentLanguage}"
+                  th:class = "|dropdown-item ${currentLanguage == 'UA' ? 'text-white bg-info disabled' : ''}|"
+                  onclick="window.location.href='http://localhost:8080/smartphones?localeData=uk'"
+                  th:text="#{switchUkrainian}">
+              </button>
+            </div>
+          </li>
+        </ul>
+      </th:block>
+
+    </div>
+  </nav>
+
+</th:block>
+
